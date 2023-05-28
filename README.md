@@ -149,7 +149,9 @@ Motivos desta escolha: <br><br>
 <p>Conexão da API com o Banco: <br><br>
 A conexão é feita por meio da biblioteca do Python <a href="https://pypi.org/project/psycopg2/">psycopg2</a> utilizando a URL de conexão como parametro</p><br>
 <p>Credenciais de conexão:<br><br>
-A credencial de conexão via URL se encontra no arquivo .env</p></div>
+A credencial de conexão via URL se encontra no arquivo .env</p><br>
+<p>Hospedagem do banco de dados:<br><br>
+O banco de dados atualmente se econtra hospedado com o serviço gratuito <a href="https://www.elephantsql.com">ElephantSQL</a></p></div>
 
 ## Desenvolvedores
 1. Nome: Lucas Fernandes Joaquim, RM: 551313
