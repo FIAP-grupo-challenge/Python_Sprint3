@@ -11,7 +11,7 @@
 
 <div>
 <p>Esta api foi escrita com o intuito de conectar diversar partes do sistema da mini estufa <br></p>
-<p>Areas que api conecta: <br>
+<p>Areas que a API conecta: <br>
 * Sensores/Arduino da estufa <br>
 * Banco de dados <br>
 * Site da empresa <br>
