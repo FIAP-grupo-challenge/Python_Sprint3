@@ -112,10 +112,11 @@
    <img src="images/exemplo6.png" alt="Logo" width="auto" height="auto"><p>
    Este endpoint deve receber um parametro id para que a busca possa ser feita<br>
    juntamente do parametro options</p><br>
-   <p>Parametro opção:<br>
+   <p>Parametro option:<br>
    * all : retorna todas as informações da planta<br>
    * temp : retorna a temperatura do ambiente da planta<br>
    * humi : retorna a humidade do ambiente da planta<br>
    * light : retorna a luminosidade do ambiente da planta<br>
+   * ph : retorna o ph do solo no ambiente da planta<br>
    * water : retorna a ultima vez que a planta foi regada (timestamp)</p><br><br><br></div>
 
