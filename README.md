@@ -49,7 +49,13 @@
    <p>
    Uso: criar uma conta no banco de dados <br>
    <br> Exemplo: </p>
-   <img src="images/exemplo1.png" alt="Logo" width="auto" height="auto"><br><br><br></div>
+   <img src="images/exemplo1.png" alt="Logo" width="auto" height="auto"><br>
+   <p>Este endpoint possui validações</p><br>
+   <p>Validações:<br>
+   * email :<br> <img src="images/code1.png" alt="Logo" width="auto" height="auto"><br>
+   * idade :<br> <img src="images/code2.png" alt="Logo" width="auto" height="auto"><br>
+   * cpf :<br> <img src="images/code3.png" alt="Logo" width="auto" height="auto"><br>
+   * cep :<br> <img src="images/code4.png" alt="Logo" width="auto" height="auto"></p><br><br><br></div>
 
 2. Mudar informações da conta
     ```text

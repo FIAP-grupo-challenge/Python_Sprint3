@@ -99,7 +99,7 @@ class ValidadorCliente:
         if len(set(cep)) == 1:
             return False
 
-        # Verifica se o CEP é válido de acordo com o padrão
+        # Verifica se o CEP é válido conforme o padrão
         if re.match(r'^[0-9]{8}$', cep):
             print(f"CEP : {cep} Validado")
             return True
