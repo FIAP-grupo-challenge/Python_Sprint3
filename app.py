@@ -13,10 +13,6 @@ def conexao():
 
 
 load_dotenv()
-
-INSERT_CLIENT = "INSERT INTO client (nome,email,idade,cpf,cep,senha) VALUES (%s,%s,%s,%s,%s,%s)"
-SELECT_CLIENT = "SELECT * FROM client WHERE id = (%s)"
-SELECT_ALL_CLIENT = "SELECT id,nome FROM client ORDER BY id"
 app = Flask(__name__)
 CORS(app)
 connection = conexao()
@@ -24,6 +20,7 @@ connection = conexao()
 
 @app.post("/api/create/acount")
 def create_cliente():
+    INSERT_CLIENT = "INSERT INTO client (nome,email,idade,cpf,cep,senha) VALUES (%s,%s,%s,%s,%s,%s)"
     data = request.get_json()
     nome = data["nome"]
     email = data["email"]
@@ -33,6 +30,7 @@ def create_cliente():
     senha = data["senha"]
     try:
         validador = ValidadorCliente(nome,email,idade,cpf,cep)
+        del validador
         with connection:
             with connection.cursor() as cursor:
                 cursor.execute(INSERT_CLIENT, (nome,email,idade,cpf,cep,senha))
@@ -57,6 +55,7 @@ def update_cliente():
 
 @app.get("/api/get/client")
 def get_cliente():
+    SELECT_CLIENT = "SELECT * FROM client WHERE id = (%s)"
     id = request.args.get("id")
     with connection:
         with connection.cursor() as cursor:
@@ -78,6 +77,7 @@ def get_cliente():
 
 @app.get("/api/get/client/list")
 def get_client_list():
+    SELECT_ALL_CLIENT = "SELECT id,nome FROM client ORDER BY id"
     dicionario = {}
     with connection:
         with connection.cursor() as cursor:
@@ -90,11 +90,31 @@ def get_client_list():
                 index += 1
             response = make_response(dicionario)
             response.mimetype = "text/plain"
-            print(response.mimetype)
     return response
 
 
-@app.get("/api/plant/info")
+@app.get("/api/get/plant/list")
+def get_plant_list():
+    dicionario = {}
+    id = request.args.get("id")
+    with connection:
+        with connection.cursor() as cursor:
+            cursor.execute(f"SELECT * FROM plant WHERE client_id = {id} ORDER BY id")
+            cliente = cursor.fetchall()
+            index = 0
+            for c in cliente:
+                dados_novos = {index: {"plant_id": c[0],
+                                       "client_id": c[1],
+                                       "plant_type": c[2],
+                                       "plant_status": c[3]}}
+                dicionario.update(dados_novos)
+                index += 1
+            response = make_response(dicionario)
+            response.mimetype = "text/plain"
+    return response
+
+
+@app.get("/api/get/plant/info")
 def get_planta():
     opcao = request.args.get("option")
     opcoes = {"all": "temperature,humidity,light,ph,last_time_watered",
@@ -103,7 +123,7 @@ def get_planta():
               "light": "light",
               "ph": "ph",
               "water": "last_time_watered"}
-    id = request.args.get("id")
+    id = request.args.get("plant_id")
     with connection:
         with connection.cursor() as cursor:
             cursor.execute(f"SELECT {opcoes.get(opcao)} FROM plant_info WHERE plant_id = {id}")

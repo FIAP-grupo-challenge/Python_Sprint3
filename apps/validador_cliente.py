@@ -1,6 +1,11 @@
 import re
 
 
+# validador de clientes se encontra em forma de classe para que
+# não haja a necessidade de uma rescrita parcial do seu codigo
+# quando decidirmos implemtar mais funcionaliudades a esta classe
+
+
 class ValidadorCliente:
 
     def __init__(self, nome, email, idade, cpf, cep):
