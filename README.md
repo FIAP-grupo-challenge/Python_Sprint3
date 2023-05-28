@@ -42,7 +42,7 @@
     ```
     <div>
     <p>
-    Não eh necessario que o programa seja executado na porta 80, contudo a demonstração deste <br>
+    Não eh necessario que o programa seja executado na porta 80, contudo a demonstração deste
     documento sera feita no servidor de desenvolvimento do flask (improprio para produção) e porta 80
     </p></div>
 
