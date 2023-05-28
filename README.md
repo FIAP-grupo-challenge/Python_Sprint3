@@ -150,3 +150,10 @@ Motivos desta escolha: <br><br>
 A conexão é feita por meio da biblioteca do Python <a href="https://pypi.org/project/psycopg2/">psycopg2</a> utilizando a URL de conexão como parametro</p><br>
 <p>Credenciais de conexão:<br><br>
 A credencial de conexão via URL se encontra no arquivo .env</p></div>
+
+## Desenvolvedores
+1. Nome: Lucas Fernandes Joaquim, RM: 551313
+2. Nome: Gustavo Ferreira Lopes, RM: 98887
+3. Nome: heitor freire dos anjos, RM: 552165
+4. Nome: Rodrigo Fernandes dos Santos, RM: 98896
+5. Nome: Enzo Silva Cataldi, RM: 99826
