@@ -10,7 +10,9 @@
 ## Sobre o projeto
 
 <div>
-<p>Esta api foi escrita com o intuito de conectar diversar partes do sistema da mini estufa <br></p>
+<p>Esta api foi escrita com o intuito de conectar diversar partes do sistema da mini estufa <br>
+Deve ser umsado em conjunto com o <a href="https://github.com/FIAP-grupo-challenge/Python_algoritimo_assincrono_GS">algoritimo_assincrono</a></p>
+
 <p>Areas que a API conecta: <br>
 * Sensores/Arduino da estufa <br>
 * Banco de dados <br>
