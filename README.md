@@ -56,7 +56,7 @@
    Uso: criar uma conta no banco de dados <br>
    <br> Exemplo: </p>
    <img src="images/exemplo1.png" alt="Logo" width="auto" height="auto"><br>
-   <p>Este endpoint possui validações</p><br>
+   <p>Este endpoint possui validações e deve ser vir acompanhado de um body que possui nome, idade, email, cpf, cep e senha</p><br>
    <p>Validações:<br>
    * email :<br> <img src="images/code1.png" alt="Logo" width="auto" height="auto"><br>
    * idade :<br> <img src="images/code2.png" alt="Logo" width="auto" height="auto"><br>
@@ -72,6 +72,7 @@
    Uso: Modifica um elemento especifico da informação do cliente  <br>
    <br> Exemplo: </p>
    <img src="images/exemplo2.png" alt="Logo" width="auto" height="auto">
+   este endpoint deve vir acompanhado de um body que contem nome, parametro, e valor do parametro
    <p>Lista de parametros editaveis:<br>
    * nome<br>
    * email<br>
@@ -132,6 +133,16 @@
    * ph : retorna o ph do solo no ambiente da planta<br>
    * water : retorna a ultima vez que a planta foi regada (timestamp)</p><br><br><br></div>
 
+7. Obter login
+    ```text
+    /api/get/plant/info?plant_id=(id da planta desejado)&option=(opção)
+    ```
+   <div>
+   <p>
+   Uso: Rota simples que verifica se o usuario e a senha batem <br>
+   <br> Exemplo: </p>
+   <img src="images/exemplo7.png" alt="Logo" width="auto" height="auto"><p>
+   Este endpoint deve receber um body contendo o nome e a senha que o usuario digitou</p><br><br><br>
 ## Banco de dados
 
 <div>

@@ -92,6 +92,24 @@ def get_client_list():
             response.mimetype = "text/plain"
     return response
 
+# em uma situação de produção haveria muito mais segurança nesta area
+# contudo por restrições de tempo neste prototipo n havera
+@app.post("/api/get/client/login")
+def get_client_login():
+    data = request.get_json()
+    nome = data["nome"]
+    senha = data["senha"]
+    with connection:
+        with connection.cursor() as cursor:
+            cursor.execute(f"SELECT senha FROM client WHERE nome = '{nome}'")
+            dados = cursor.fetchall()
+            if senha == dados[0][0]:
+                response = True
+            else:
+                response = False
+    return {"resposta": response}
+
+
 
 @app.get("/api/get/plant/list")
 def get_plant_list():
