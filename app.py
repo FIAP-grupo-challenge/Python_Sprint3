@@ -17,7 +17,7 @@ app = Flask(__name__)
 CORS(app)
 connection = conexao()
 
-
+# Rota para criar conta
 @app.post("/api/create/acount")
 def create_cliente():
     INSERT_CLIENT = "INSERT INTO client (nome,email,idade,cpf,cep,senha) VALUES (%s,%s,%s,%s,%s,%s)"
@@ -40,6 +40,7 @@ def create_cliente():
         return str(e)
 
 
+# rota para dar alterar informações do cliente
 @app.route("/api/update/cliente", methods=["GET", "POST"])
 def update_cliente():
     data = json.loads(request.data)
@@ -53,6 +54,7 @@ def update_cliente():
     return "201"
 
 
+# rota para obter informações do cliente com base no ip
 @app.get("/api/get/client")
 def get_cliente():
     SELECT_CLIENT = "SELECT * FROM client WHERE id = (%s)"
@@ -75,6 +77,7 @@ def get_cliente():
     return response
 
 
+# rota para obter lista de clientes
 @app.get("/api/get/client/list")
 def get_client_list():
     SELECT_ALL_CLIENT = "SELECT id,nome FROM client ORDER BY id"
@@ -110,7 +113,7 @@ def get_client_login():
     return {"resposta": response}
 
 
-
+# rota para obter lista de plantas por id de cliente
 @app.get("/api/get/plant/list")
 def get_plant_list():
     dicionario = {}
@@ -131,7 +134,7 @@ def get_plant_list():
             response.mimetype = "text/plain"
     return response
 
-
+# rota para obter ifnromações da planta por id da planta
 @app.get("/api/get/plant/info")
 def get_planta():
     opcao = request.args.get("option")
