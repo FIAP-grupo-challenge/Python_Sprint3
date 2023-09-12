@@ -147,7 +147,7 @@ def get_planta():
     id = request.args.get("plant_id")
     with connection:
         with connection.cursor() as cursor:
-            cursor.execute(f"SELECT {opcoes.get(opcao)} FROM plant_info WHERE plant_id = {id}")
+            cursor.execute(f"SELECT {opcoes.get(opcao)} FROM plant_info WHERE plant_id = {id} ORDER BY created_at DESC")
             dados = cursor.fetchall()
             if opcao == "all":
                 compilado = {"temp": dados[0][0],
@@ -163,3 +163,25 @@ def get_planta():
             response_2.mimetype = "text/plain"
             return response_2
 
+@app.post("/api/create/plant/info")
+def create_plant_info():
+    data = request.get_json()
+    plant_id = data["plant_id"]
+    temp = data["temp"]
+    humi = data["humi"]
+    light = data["light"]
+    ph = data["ph"]
+    try:
+        with connection:
+            with connection.cursor() as cursor:
+                cursor.execute(f"SELECT * FROM plant WHERE id = {plant_id}")
+                cadastro_planta = cursor.fetchone()
+                if cadastro_planta == None:
+                    return "Esta planta não existe"
+                else:
+                    cursor.execute(f"INSERT INTO plant_info (plant_id,temperature,humidity,light,ph,last_time_watered) VALUES ("
+                                   f"{plant_id},{temp},{humi},{light},{ph},NOW())")
+        return "201"
+    except Exception as e:
+        print("An error occurred:", str(e))
+        return str(e)
