@@ -191,6 +191,8 @@ def create_plant():
     data = request.get_json()
     client_id = data["client_id"]
     plant_type = data["plant_type"]
+    plant_list = ["peper", "zucchini", "arugula", "spinach", "bean", "pea",
+                  "lentil", "carrot", "beet", "radish", "tomato", "lettuce"]
     try:
         with connection:
             with connection.cursor() as cursor:
@@ -199,7 +201,10 @@ def create_plant():
                 if cadastro_client == None:
                     return "Este cliente não esta cadastrado"
                 else:
-                    cursor.execute(f"INSERT INTO plant (client_id,plant_type) VALUES ({client_id}, '{plant_type}')")
+                    if plant_type in plant_list:
+                        cursor.execute(f"INSERT INTO plant (client_id,plant_type) VALUES ({client_id}, '{plant_type}')")
+                    else:
+                        return "Esta planta não esta no nosso sistema"
         return "201"
     except Exception as e:
         print("An error occurred:", str(e))
