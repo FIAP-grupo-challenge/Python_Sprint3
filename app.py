@@ -185,3 +185,22 @@ def create_plant_info():
     except Exception as e:
         print("An error occurred:", str(e))
         return str(e)
+
+@app.post("/api/create/plant")
+def create_plant():
+    data = request.get_json()
+    client_id = data["client_id"]
+    plant_type = data["plant_type"]
+    try:
+        with connection:
+            with connection.cursor() as cursor:
+                cursor.execute(f"SELECT * FROM client WHERE id = {client_id}")
+                cadastro_client = cursor.fetchone()
+                if cadastro_client == None:
+                    return "Este cliente não esta cadastrado"
+                else:
+                    cursor.execute(f"INSERT INTO plant (client_id,plant_type) VALUES ({client_id}, '{plant_type}')")
+        return "201"
+    except Exception as e:
+        print("An error occurred:", str(e))
+        return str(e)
