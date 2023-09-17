@@ -145,6 +145,36 @@ Deve ser usado em conjunto com o <a href="https://github.com/FIAP-grupo-challeng
    <br> Exemplo: </p>
    <img src="images/exemplo7.png" alt="Logo" width="auto" height="auto"><p>
    Este endpoint deve receber um body contendo o nome e a senha que o usuario digitou</p><br><br><br>
+
+8. Obter login
+    ```text
+    /api/create/plant/info
+    ```
+   <div>
+   <p>
+   Uso: Rota simples para criar registro no banco com informações da planta <br>
+   <br> Exemplo: </p>
+   <img src="images/exemplo8.png" alt="Logo" width="auto" height="auto"><p>
+   Este endpoint deve receber um body contendo:<br>
+   plant_id <br>
+   temp (temperatura)<br>
+   humi (humidade)<br>
+   light (luz)<br>
+   ph</p><br><br><br>
+
+9. Obter login
+    ```text
+    /api/create/plant
+    ```
+   <div>
+   <p>
+   Uso: Rota para criar uma planta no banco de dados, atualmente aceitando os<br>
+   12 tipos de plantas presentes no sistema<br>
+   <br> Exemplo: </p>
+   <img src="images/exemplo7.png" alt="Logo" width="auto" height="auto"><p>
+   Este endpoint deve receber um body contendo: <br>
+   client_id (id do cliente)<br>
+   plant_type(tipo da planta)</p><br><br><br>
 ## Banco de dados
 
 <div>
