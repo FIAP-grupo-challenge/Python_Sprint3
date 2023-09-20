@@ -21,6 +21,7 @@ connection = conexao()
 @app.post("/api/create/acount")
 def create_cliente():
     INSERT_CLIENT = "INSERT INTO client (nome,email,idade,cpf,cep,senha) VALUES (%s,%s,%s,%s,%s,%s)"
+    SELECT_CLIENT = "SELECT * FROM client WHERE email = (%s)"
     data = request.get_json()
     nome = data["nome"]
     email = data["email"]
@@ -34,7 +35,12 @@ def create_cliente():
         with connection:
             with connection.cursor() as cursor:
                 cursor.execute(INSERT_CLIENT, (nome,email,idade,cpf,cep,senha))
-        return "201"
+                cursor.execute(SELECT_CLIENT, (email,))
+                cliente = cursor.fetchall()[0]
+                id = {"client_id" : cliente[0]}
+                response = make_response(id)
+                response.mimetype = "text/plain"
+        return response
     except Exception as e:
         print("An error occurred:", str(e))
         return str(e)
@@ -50,7 +56,10 @@ def update_cliente():
 
     with connection:
         with connection.cursor() as cursor:
-            cursor.execute(f"UPDATE client SET {parametro} = ({valor_para_parametro}) WHERE nome = ('{nome}')")
+            if str(valor_para_parametro).isnumeric():
+                cursor.execute(f"UPDATE client SET {parametro} = ({valor_para_parametro}) WHERE nome = ('{nome}')")
+            else:
+                cursor.execute(f"UPDATE client SET {parametro} = ('{valor_para_parametro}') WHERE nome = ('{nome}')")
     return "201"
 
 
