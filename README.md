@@ -146,7 +146,7 @@ Deve ser usado em conjunto com o <a href="https://github.com/FIAP-grupo-challeng
    <img src="images/exemplo7.png" alt="Logo" width="auto" height="auto"><p>
    Este endpoint deve receber um body contendo o nome e a senha que o usuario digitou</p><br><br><br>
 
-8. Obter login
+8. Criar informação da planta
     ```text
     /api/create/plant/info
     ```
@@ -162,7 +162,7 @@ Deve ser usado em conjunto com o <a href="https://github.com/FIAP-grupo-challeng
    light (luz)<br>
    ph</p><br><br><br>
 
-9. Obter login
+9. Criar planta
     ```text
     /api/create/plant
     ```
@@ -171,7 +171,7 @@ Deve ser usado em conjunto com o <a href="https://github.com/FIAP-grupo-challeng
    Uso: Rota para criar uma planta no banco de dados, atualmente aceitando os<br>
    12 tipos de plantas presentes no sistema<br>
    <br> Exemplo: </p>
-   <img src="images/exemplo7.png" alt="Logo" width="auto" height="auto"><p>
+   <img src="images/exemplo9.png" alt="Logo" width="auto" height="auto"><p>
    Este endpoint deve receber um body contendo: <br>
    client_id (id do cliente)<br>
    plant_type(tipo da planta)</p><br><br><br>
