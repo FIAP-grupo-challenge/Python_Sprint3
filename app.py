@@ -39,7 +39,7 @@ def create_cliente():
                 cliente = cursor.fetchall()[0]
                 id = {"client_id" : cliente[0]}
                 response = make_response(id)
-                response.mimetype = "text/plain"
+                response.mimetype = "raw/json"
         return response
     except Exception as e:
         print("An error occurred:", str(e))
@@ -86,7 +86,7 @@ def get_cliente():
                              "cep": cliente[6]},
                              "plants": lista_plantas}
                 response = make_response(compilado)
-                response.mimetype = "text/plain"
+                response.mimetype = "raw/json"
                 print(response.mimetype)
             except Exception as e:
                 return "id de cliente invalido erro = " + str(e)
@@ -108,7 +108,7 @@ def get_client_list():
                 dicionario.update(dados_novos)
                 index += 1
             response = make_response(dicionario)
-            response.mimetype = "text/plain"
+            response.mimetype = "raw/json"
     return response
 
 # em uma situação de produção haveria muito mais segurança nesta area
@@ -148,7 +148,7 @@ def get_plant_list():
                 dicionario.update(dados_novos)
                 index += 1
             response = make_response(dicionario)
-            response.mimetype = "text/plain"
+            response.mimetype = "raw/json"
     return response
 
 # rota para obter ifnromações da planta por id da planta
@@ -177,7 +177,7 @@ def get_planta():
                 return response_1
             compilado = {opcao:dados[0][0]}
             response_2 = make_response(compilado)
-            response_2.mimetype = "text/plain"
+            response_2.mimetype = "raw/json"
             return response_2
 
 @app.post("/api/create/plant/info")
