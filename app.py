@@ -4,7 +4,7 @@ from apps.validador_cliente import ValidadorCliente
 from dotenv import load_dotenv
 from flask import *
 from flask_cors import CORS
-
+from apps.processador_status import processar_status
 
 def conexao():
     url = os.getenv("DATABASE_URL")
@@ -144,7 +144,7 @@ def get_plant_list():
                 dados_novos = {index: {"plant_id": c[0],
                                        "client_id": c[1],
                                        "plant_type": c[2],
-                                       "plant_status": c[3]}}
+                                       "plant_status": processar_status(c[3])}}
                 dicionario.update(dados_novos)
                 index += 1
             response = make_response(dicionario)
@@ -166,12 +166,16 @@ def get_planta():
         with connection.cursor() as cursor:
             cursor.execute(f"SELECT {opcoes.get(opcao)} FROM plant_info WHERE plant_id = {id} ORDER BY created_at DESC")
             dados = cursor.fetchall()
+            cursor.execute(f"SELECT plant_type,plant_status FROM plant WHERE id = {id}")
+            plant = cursor.fetchall()[0]
             if opcao == "all":
                 compilado = {"temp": float(dados[0][0]),
                              "humi": float(dados[0][1]),
                              "light": float(dados[0][2]),
                              "ph": float(dados[0][3]),
-                             "water": dados[0][4]}
+                             "water": dados[0][4],
+                             "plant_type": plant[0],
+                             "plant_status": processar_status(plant[1])}
                 response_1 = make_response(compilado)
                 response_1.mimetype = "raw/json"
                 return response_1
