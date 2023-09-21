@@ -167,13 +167,13 @@ def get_planta():
             cursor.execute(f"SELECT {opcoes.get(opcao)} FROM plant_info WHERE plant_id = {id} ORDER BY created_at DESC")
             dados = cursor.fetchall()
             if opcao == "all":
-                compilado = {"temp": dados[0][0],
-                             "humi": dados[0][1],
-                             "light": dados[0][2],
-                             "ph": dados[0][3],
+                compilado = {"temp": float(dados[0][0]),
+                             "humi": float(dados[0][1]),
+                             "light": float(dados[0][2]),
+                             "ph": float(dados[0][3]),
                              "water": dados[0][4]}
                 response_1 = make_response(compilado)
-                response_1.mimetype = "text/plain"
+                response_1.mimetype = "raw/json"
                 return response_1
             compilado = {opcao:dados[0][0]}
             response_2 = make_response(compilado)
