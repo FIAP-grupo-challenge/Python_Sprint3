@@ -109,17 +109,18 @@ def get_client_list():
 @app.post("/api/get/client/login")
 def get_client_login():
     data = request.get_json()
-    nome = data["nome"]
+    email = data["email"]
     senha = data["senha"]
     with connection:
         with connection.cursor() as cursor:
-            cursor.execute(f"SELECT senha FROM client WHERE nome = '{nome}'")
+            cursor.execute(f"SELECT id,senha FROM client WHERE email = '{email}'")
             dados = cursor.fetchall()
-            if senha == dados[0][0]:
+            if senha == dados[0][1]:
                 response = True
             else:
                 response = False
-    return {"resposta": response}
+    return {"resposta": response,
+            "client_id": dados[0][0]}
 
 
 # rota para obter lista de plantas por id de cliente
