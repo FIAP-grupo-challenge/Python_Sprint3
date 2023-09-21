@@ -73,11 +73,18 @@ def get_cliente():
             try:
                 cursor.execute(SELECT_CLIENT, (id,))
                 cliente = cursor.fetchall()[0]
-                compilado = {"nome": cliente[1],
+                cursor.execute(f"SELECT id,plant_type FROM plant WHERE client_id = {id} ORDER BY id")
+                plantas = cursor.fetchall()
+                lista_plantas = []
+                for plant in plantas:
+                    lista_plantas.append({"plant_id": plant[0], "plant_type": plant[1]})
+                compilado = {"client": {
+                             "nome": cliente[1],
                              "email": cliente[2],
                              "idade": cliente[3],
                              "cpf": cliente[4],
-                             "cep": cliente[6]}
+                             "cep": cliente[6]},
+                             "plants": lista_plantas}
                 response = make_response(compilado)
                 response.mimetype = "text/plain"
                 print(response.mimetype)
