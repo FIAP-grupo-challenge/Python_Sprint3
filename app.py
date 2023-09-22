@@ -83,7 +83,7 @@ def get_cliente():
                              "email": cliente[2],
                              "idade": cliente[3],
                              "cpf": cliente[4],
-                             "cep": cliente[6]},
+                             "cep": cliente[5]},
                              "plants": lista_plantas}
                 response = make_response(compilado)
                 response.mimetype = "raw/json"
