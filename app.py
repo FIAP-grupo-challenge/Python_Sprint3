@@ -146,7 +146,6 @@ def get_plant_list():
             index = 0
             for c in cliente:
                 dados_novos = {"plant_id": c[0],
-                               "client_id": c[1],
                                "plant_type": c[2]}
                 lista_plantas.append(dados_novos)
                 index += 1
