@@ -120,14 +120,15 @@ def get_client_login():
     senha = data["senha"]
     with connection:
         with connection.cursor() as cursor:
-            cursor.execute(f"SELECT id,senha,cpf,email FROM client WHERE email = '{email}'")
+            cursor.execute(f"SELECT id,senha,nome,cpf,email FROM client WHERE email = '{email}'")
             dados = cursor.fetchall()
             if senha == dados[0][1]:
                 response = True
                 return {"resposta": response,
                         "client_id": dados[0][0],
-                        "cpf": dados[0][2],
-                        "email": dados[0][3]}
+                        "nome": dados[0][2],
+                        "cpf": dados[0][3],
+                        "email": dados[0][4]}
             else:
                 response = False
     return {"resposta": response}
