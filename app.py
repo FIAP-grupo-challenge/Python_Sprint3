@@ -124,10 +124,11 @@ def get_client_login():
             dados = cursor.fetchall()
             if senha == dados[0][1]:
                 response = True
+                return {"resposta": response,
+                        "client_id": dados[0][0]}
             else:
                 response = False
-    return {"resposta": response,
-            "client_id": dados[0][0]}
+    return {"resposta": response}
 
 
 # rota para obter lista de plantas por id de cliente
