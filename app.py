@@ -120,20 +120,24 @@ def get_client_login():
     senha = data["senha"]
     with connection:
         with connection.cursor() as cursor:
-            cursor.execute(f"SELECT id,senha FROM client WHERE email = '{email}'")
+            cursor.execute(f"SELECT id,senha,nome,cpf,email FROM client WHERE email = '{email}'")
             dados = cursor.fetchall()
             if senha == dados[0][1]:
                 response = True
+                return {"resposta": response,
+                        "client_id": dados[0][0],
+                        "nome": dados[0][2],
+                        "cpf": dados[0][3],
+                        "email": dados[0][4]}
             else:
                 response = False
-    return {"resposta": response,
-            "client_id": dados[0][0]}
+    return {"resposta": response}
 
 
 # rota para obter lista de plantas por id de cliente
 @app.get("/api/get/plant/list")
 def get_plant_list():
-    dicionario = {}
+    lista_plantas = []
     id = request.args.get("id")
     with connection:
         with connection.cursor() as cursor:
@@ -141,13 +145,11 @@ def get_plant_list():
             cliente = cursor.fetchall()
             index = 0
             for c in cliente:
-                dados_novos = {index: {"plant_id": c[0],
-                                       "client_id": c[1],
-                                       "plant_type": c[2],
-                                       "plant_status": processar_status(c[3])}}
-                dicionario.update(dados_novos)
+                dados_novos = {"plant_id": c[0],
+                               "plant_type": c[2]}
+                lista_plantas.append(dados_novos)
                 index += 1
-            response = make_response(dicionario)
+            response = make_response(lista_plantas)
             response.mimetype = "raw/json"
     return response
 
