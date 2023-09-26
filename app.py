@@ -224,10 +224,14 @@ def create_plant():
                 if cadastro_client == None:
                     return "Este cliente não esta cadastrado"
                 else:
-                    if plant_type in plant_list:
-                        cursor.execute(f"INSERT INTO plant (client_id,plant_type) VALUES ({client_id}, '{plant_type}')")
-                    else:
-                        return "Esta planta não esta no nosso sistema"
+                    # Loop de validação
+                    for plantval in plant_type:
+                        if plantval not in plant_list:
+                            return f"A planta {plantval} não esta no sistema, tente {plant_list}"
+                    # Loop de registro
+                    for plant in plant_type:
+                        cursor.execute(f"INSERT INTO plant (client_id,plant_type) VALUES ({client_id}, '{plant}')")
+
         return "201"
     except Exception as e:
         print("An error occurred:", str(e))
