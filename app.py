@@ -214,7 +214,7 @@ def create_plant():
     data = request.get_json()
     client_id = data["client_id"]
     plant_type = data["plant_type"]
-    plant_list = ["pepper", "zucchini", "arugula", "spinach", "bean", "pea",
+    plant_list = ["peper", "zucchini", "arugula", "spinach", "bean", "pea",
                   "lentil", "carrot", "beet", "radish", "tomato", "lettuce"]
     try:
         with connection:
@@ -232,3 +232,5 @@ def create_plant():
     except Exception as e:
         print("An error occurred:", str(e))
         return str(e)
+
+#commit
