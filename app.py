@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from flask import *
 from flask_cors import CORS
 from apps.processador_status import processar_status
+from apps.processador_status import processar_string_compra
 
 def conexao():
     url = os.getenv("DATABASE_URL")
@@ -212,6 +213,7 @@ def create_plant_info():
 @app.post("/api/create/plant")
 def create_plant():
     data = request.get_json()
+    purchase_string = "/"
     client_id = data["client_id"]
     plant_type = data["plant_type"]
     plant_list = ["pepper", "zucchini", "arugula", "spinach", "bean", "pea",
@@ -230,11 +232,29 @@ def create_plant():
                             return f"A planta {plantval} não esta no sistema, tente {plant_list}"
                     # Loop de registro
                     for plant in plant_type:
-                        cursor.execute(f"INSERT INTO plant (client_id,plant_type) VALUES ({client_id}, '{plant}')")
+                        cursor.execute(f"INSERT INTO plant (client_id,plant_type) VALUES ({client_id},'{plant}')")
+                        purchase_string += f"{plant}/"
+                    cursor.execute(f"INSERT INTO purchase_log (client_id,purchase) VALUES ({client_id},'{purchase_string}')")
 
         return "201"
     except Exception as e:
         print("An error occurred:", str(e))
         return str(e)
 
-#commit
+
+@app.get("/api/get/purchase/list")
+def get_purchase_list():
+    response = []
+    with connection:
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT * FROM purchase_log")
+            purchase_log = cursor.fetchall()
+            for compra in purchase_log:
+                purchase = {"client_id": compra[1],
+                            "purchase": processar_string_compra(compra[2]),
+                            "purchase_time": compra[3]}
+                response.append(purchase)
+
+    response = make_response(response)
+    response.mimetype = "raw/json"
+    return response
