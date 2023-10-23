@@ -263,41 +263,73 @@ def get_purchase_list():
 @app.get("/api/get/plant/graph")
 def get_graph():
     plant_id = request.args.get("plant_id")
+    type = request.args.get("type")
+    valid_type = ["temp", "humi", "light", "ph"]
     response = {}
     with connection:
         with connection.cursor() as cursor:
             cursor.execute(f"SELECT * FROM plant_info WHERE created_at >= NOW() - INTERVAL '30 days' AND plant_id = {plant_id};")
             dados = cursor.fetchall()
 
-    if not dados:
-        response["response"] = "planta sem dados"
+    if type not in valid_type:
+        response["response"] = "type invalido"
+        response = make_response(response)
+        response.mimetype = "raw/json"
+        return response
     else:
-        date_array = []
-        light_array = []
-        ph_array = []
-        temp_array = []
-        humi_array = []
+        if not dados:
+            response["response"] = "planta sem dados"
+        else:
 
-        for dado in dados:
-            data = calcular_dias_passados(dado[7])
-            date_array.append(data)
-            temp_array.append(int(dado[2]))
-            humi_array.append(int(dado[3]))
-            light_array.append(int(dado[4]))
-            ph_array.append(float(dado[5]))
+            date_array = []
+            light_array = []
+            ph_array = []
+            temp_array = []
+            humi_array = []
 
-        response = {
-            "response": "201",
-            "id": plant_id,
-            "dados": {
-                "temp": [temp_array,date_array],
-                "humi": [humi_array,date_array],
-                "light": [light_array, date_array],
-                "ph": [ph_array, date_array]
+            for dado in dados:
+                data = calcular_dias_passados(dado[7])
+                date_array.append(data)
+                temp_array.append(int(dado[2]))
+                humi_array.append(int(dado[3]))
+                light_array.append(int(dado[4]))
+                ph_array.append(float(dado[5]))
+
+            response = {
+                "temp": {
+                    "response": "201",
+                    "id": plant_id,
+                    "dados": {
+                        "info": temp_array,
+                        "date": date_array
+                    }
+                },
+                "humi": {
+                    "response": "201",
+                    "id": plant_id,
+                    "dados": {
+                        "info": humi_array,
+                        "date": date_array
+                    }
+                },
+                "light": {
+                    "response": "201",
+                    "id": plant_id,
+                    "dados": {
+                        "info": light_array,
+                        "date": date_array
+                    }
+                },
+                "ph": {
+                    "response": "201",
+                    "id": plant_id,
+                    "dados": {
+                        "info": ph_array,
+                        "date": date_array
+                    }
+                }
             }
-        }
 
-
-    response = make_response(response)
-    response.mimetype = "raw/json"
-    return response
+        response = make_response(response[type])
+        response.mimetype = "raw/json"
+        return response
