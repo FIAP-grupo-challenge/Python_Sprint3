@@ -296,7 +296,6 @@ def get_graph():
                 "ph": [ph_array, date_array]
             }
         }
-        print(response)
 
 
     response = make_response(response)
