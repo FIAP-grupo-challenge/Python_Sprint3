@@ -16,6 +16,7 @@ def conexao():
 
 load_dotenv()
 app = Flask(__name__)
+CORS(app)
 connection = conexao()
 
 # Rota para criar conta
