@@ -1,5 +1,7 @@
 import os
 import psycopg2
+
+from apps.processar_grafico import formatar_response_grafico
 from apps.validador_cliente import ValidadorCliente
 from dotenv import load_dotenv
 from flask import *
@@ -264,72 +266,10 @@ def get_purchase_list():
 def get_graph():
     plant_id = request.args.get("plant_id")
     type = request.args.get("type")
-    valid_type = ["temp", "humi", "light", "ph"]
     response = {}
     with connection:
         with connection.cursor() as cursor:
             cursor.execute(f"SELECT * FROM plant_info WHERE created_at >= NOW() - INTERVAL '30 days' AND plant_id = {plant_id};")
             dados = cursor.fetchall()
-
-    if type not in valid_type:
-        response["response"] = "type invalido"
-        response = make_response(response)
-        response.mimetype = "raw/json"
-        return response
-    else:
-        if not dados:
-            response["response"] = "planta sem dados"
-        else:
-
-            date_array = []
-            light_array = []
-            ph_array = []
-            temp_array = []
-            humi_array = []
-
-            for dado in dados:
-                data = calcular_dias_passados(dado[7])
-                date_array.append(data)
-                temp_array.append(int(dado[2]))
-                humi_array.append(int(dado[3]))
-                light_array.append(int(dado[4]))
-                ph_array.append(float(dado[5]))
-
-            response = {
-                "temp": {
-                    "response": "201",
-                    "id": plant_id,
-                    "dados": {
-                        "info": [20,21,22,23,24,25,26,27,28,29],
-                        "date": [20,21,22,23,24,25,26,27,28,29]
-                    }
-                },
-                "humi": {
-                    "response": "201",
-                    "id": plant_id,
-                    "dados": {
-                        "info": [80,82,84,86,88,90,92,94,96,98],
-                        "date": [20,21,22,23,24,25,26,27,28,29]
-                    }
-                },
-                "light": {
-                    "response": "201",
-                    "id": plant_id,
-                    "dados": {
-                        "info": [2000,2200,2400,2600,2800,3000,3200,3400,3600,3800],
-                        "date": [20,21,22,23,24,25,26,27,28,29]
-                    }
-                },
-                "ph": {
-                    "response": "201",
-                    "id": plant_id,
-                    "dados": {
-                        "info": [7.0,7.1,7.2,7.3,7.4,7.5,7.6,7.7,7.8,7.9],
-                        "date": [20,21,22,23,24,25,26,27,28,29]
-                    }
-                }
-            }
-
-        response = make_response(response[type])
-        response.mimetype = "raw/json"
+            response = formatar_response_grafico(dados,type,plant_id)
         return response
