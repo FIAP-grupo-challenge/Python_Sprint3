@@ -300,32 +300,32 @@ def get_graph():
                     "response": "201",
                     "id": plant_id,
                     "dados": {
-                        "info": temp_array,
-                        "date": date_array
+                        "info": [20,21,22,23,24,25,26,27,28,29],
+                        "date": [20,21,22,23,24,25,26,27,28,29]
                     }
                 },
                 "humi": {
                     "response": "201",
                     "id": plant_id,
                     "dados": {
-                        "info": humi_array,
-                        "date": date_array
+                        "info": [80,82,84,86,88,90,92,94,96,98],
+                        "date": [20,21,22,23,24,25,26,27,28,29]
                     }
                 },
                 "light": {
                     "response": "201",
                     "id": plant_id,
                     "dados": {
-                        "info": light_array,
-                        "date": date_array
+                        "info": [2000,2200,2400,2600,2800,3000,3200,3400,3600,3800],
+                        "date": [20,21,22,23,24,25,26,27,28,29]
                     }
                 },
                 "ph": {
                     "response": "201",
                     "id": plant_id,
                     "dados": {
-                        "info": ph_array,
-                        "date": date_array
+                        "info": [7.0,7.1,7.2,7.3,7.4,7.5,7.6,7.7,7.8,7.9],
+                        "date": [20,21,22,23,24,25,26,27,28,29]
                     }
                 }
             }
