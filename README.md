@@ -91,7 +91,7 @@ Deve ser usado em conjunto com o <a href="https://github.com/FIAP-grupo-challeng
    <p>
    Uso: Buscar informações de um cliente que voce tem o ID <br>
    <br> Exemplo: </p>
-   <img src="images/exemplo3.png" alt="Logo" width="auto" height="auto"><br>
+   <img src="images/apigetclient.jpg" alt="Logo" width="auto" height="auto"><br>
    <p>
    Este endpoint deve receber um parametro id para que a busca possa ser feita</p><br><br><br></div>
 
@@ -113,7 +113,7 @@ Deve ser usado em conjunto com o <a href="https://github.com/FIAP-grupo-challeng
    <p>
    Uso: Fornece uma lista de todas as plantas daquele cliente <br>
    <br> Exemplo: </p>
-   <img src="images/exemplo5.png" alt="Logo" width="auto" height="auto"><p>
+   <img src="images/apigetplantlist.jpg" alt="Logo" width="auto" height="auto"><p>
    Este endpoint deve receber um parametro id para que a busca possa ser feita</p><br><br><br></div>
 
 6. Obter informações de uma planta em específico
@@ -124,7 +124,7 @@ Deve ser usado em conjunto com o <a href="https://github.com/FIAP-grupo-challeng
    <p>
    Uso: Fornece informações da planta <br>
    <br> Exemplo: </p>
-   <img src="images/exemplo6.png" alt="Logo" width="auto" height="auto"><p>
+   <img src="images/apigetplantinfo.jpg" alt="Logo" width="auto" height="auto"><p>
    Este endpoint deve receber um parametro id para que a busca possa ser feita<br>
    juntamente do parametro options</p><br>
    <p>Parametro option:<br>
@@ -137,13 +137,13 @@ Deve ser usado em conjunto com o <a href="https://github.com/FIAP-grupo-challeng
 
 7. Obter login
     ```text
-    /api/get/plant/info?plant_id=(id da planta desejado)&option=(opção)
+    /api/get/client/login
     ```
    <div>
    <p>
    Uso: Rota simples que verifica se o usuario e a senha batem <br>
    <br> Exemplo: </p>
-   <img src="images/exemplo7.png" alt="Logo" width="auto" height="auto"><p>
+   <img src="images/login.jpg" alt="Logo" width="auto" height="auto"><p>
    Este endpoint deve receber um body contendo o nome e a senha que o usuario digitou</p><br><br><br>
 
 8. Criar informação da planta
@@ -175,6 +175,25 @@ Deve ser usado em conjunto com o <a href="https://github.com/FIAP-grupo-challeng
    Este endpoint deve receber um body contendo: <br>
    client_id (id do cliente)<br>
    plant_type(tipo da planta)</p><br><br><br>
+
+10. Gráfico
+    ```text /api/get/plant/graph ```
+    <div>
+      <p>uso: Rota para obter os dados do maior ponto do dia dos seguintes dados: PH, Humidade, Luz e Temperatura</p>
+      <br> Exemplo: </p>
+      <img src="images/apigetplantgraph-code.jpg" alt="code" width="auto" height="auto"><p>
+       Este endpoint deve receber um body contendo: <br>
+      plant_id (id do cliente)<br>
+     type(tipo da planta)</p><br><br>
+      <br>
+      <p>
+        Exemplo postman: 
+      </p>
+      <img src="images/apigetplantgraph.jpg" alt="code" width="auto" height="auto">
+    </div>
+    <p>
+      Tipos de types:  ph, humi, light, temp
+    </p>
 ## Banco de dados
 
 <div>
